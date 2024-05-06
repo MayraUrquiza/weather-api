@@ -1,5 +1,6 @@
 import axios from "axios";
-import { OPEN_WEATHER_API_KEY, OPEN_WEATHER_API_URL } from "../config/default";
+import { OPEN_WEATHER_API_URL } from "../config/default";
+import { OPEN_WEATHER_API_KEY } from "../config/secrets";
 import { transformData } from "../dtos/forecast";
 import { IForecastParameters, IForecast } from "../types/forecastTypes";
 

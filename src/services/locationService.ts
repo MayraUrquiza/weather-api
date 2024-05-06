@@ -1,9 +1,6 @@
 import axios from "axios";
-import {
-  IP_API_URL,
-  OPEN_WEATHER_API_KEY,
-  OPEN_WEATHER_API_URL,
-} from "../config/default";
+import { IP_API_URL, OPEN_WEATHER_API_URL } from "../config/default";
+import { OPEN_WEATHER_API_KEY } from "../config/secrets";
 import { transformData } from "../dtos/location";
 import {
   ILocationByIp,
