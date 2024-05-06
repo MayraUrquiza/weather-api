@@ -1,9 +1,14 @@
 import { Request, Response } from "express";
+import { IWeatherDTO } from "../dtos/weather";
 import { getCoordinates } from "../services/locationService";
 import { getCurrentWeather } from "../services/weatherService";
+import { IErrorResponse } from "../types/errorTypes";
 import { handleError } from "../utils/errorHandler";
 
-export const getWeather = async (req: Request, res: Response) => {
+export const getWeather = async (
+  req: Request,
+  res: Response<IWeatherDTO | IErrorResponse>
+) => {
   try {
     const { city } = req.params;
 
@@ -21,12 +26,10 @@ export const getWeather = async (req: Request, res: Response) => {
     return res.status(200).send(currentWeather);
   } catch (error: any) {
     handleError(error);
-    return res
-      .status(500)
-      .send({
-        code: 500,
-        message: "Failure to get weather",
-        details: error.message,
-      });
+    return res.status(500).send({
+      code: 500,
+      message: "Failure to get weather",
+      details: error.message,
+    });
   }
 };

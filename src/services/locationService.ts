@@ -4,6 +4,7 @@ import {
   OPEN_WEATHER_API_KEY,
   OPEN_WEATHER_API_URL,
 } from "../config/default";
+import { transformData } from "../dtos/location";
 import {
   ILocationByIp,
   ILocationParameters,
@@ -15,7 +16,7 @@ export const getCurrentLocation = async () => {
     `${IP_API_URL}/json/`
   );
 
-  return currentLocation;
+  return transformData(currentLocation);
 };
 
 const getLocationsByName = async ({

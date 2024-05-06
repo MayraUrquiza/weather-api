@@ -1,5 +1,6 @@
 import axios from "axios";
 import { OPEN_WEATHER_API_KEY, OPEN_WEATHER_API_URL } from "../config/default";
+import { transformData } from "../dtos/forecast";
 import { IForecastParameters, IForecast } from "../types/forecastTypes";
 
 export const getDailyForecast = async ({
@@ -23,5 +24,5 @@ export const getDailyForecast = async ({
     }
   );
 
-  return forecast;
+  return transformData(forecast);
 };

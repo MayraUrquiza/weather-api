@@ -1,8 +1,13 @@
 import { Request, Response } from "express";
+import { ILocationDTO } from "../dtos/location";
 import { getCurrentLocation } from "../services/locationService";
+import { IErrorResponse } from "../types/errorTypes";
 import { handleError } from "../utils/errorHandler";
 
-export const getLocation = async (_req: Request, res: Response) => {
+export const getLocation = async (
+  _req: Request,
+  res: Response<ILocationDTO | IErrorResponse>
+) => {
   try {
     const currentLocation = await getCurrentLocation();
 
