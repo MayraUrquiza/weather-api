@@ -1,3 +1,10 @@
+export interface ILocationParameters {
+  cityName: string;
+  stateCode?: string;
+  countryCode?: string;
+  limit?: number;
+}
+
 export interface ILocation {
   country: string;
   lat: number;
@@ -17,4 +24,10 @@ export interface ILocationByIp extends ILocation {
   org: string;
   as: string;
   query: string;
+}
+
+export interface ILocationByName extends ILocation {
+  name: string;
+  local_names: Record<string, string>;
+  state?: string;
 }
