@@ -1,0 +1,39 @@
+{
+  "name": "weather-api",
+  "version": "1.0.0",
+  "description": "Api de consulta de datos climáticos",
+  "main": "app.ts",
+  "scripts": {
+    "build": "tsc -p . --outDir ./dist",
+    "prestart": "npm run build",
+    "serve": "node dist/app.js -m dev",
+    "start": "npm run serve",
+    "watch": "tsc-watch --noClear --onSuccess \"npm run start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MayraUrquiza/weather-api.git"
+  },
+  "keywords": [
+    "weather"
+  ],
+  "author": "Mayra Urquiza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MayraUrquiza/weather-api/issues"
+  },
+  "homepage": "https://github.com/MayraUrquiza/weather-api#readme",
+  "dependencies": {
+    "axios": "^1.6.8",
+    "express": "^4.19.2",
+    "express-validator": "^7.0.1",
+    "helmet": "^7.1.0",
+    "winston": "^3.13.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "tsc-watch": "^6.2.0",
+    "tscpaths": "^0.0.9",
+    "typescript": "^5.4.5"
+  }
+}
