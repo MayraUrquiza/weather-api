@@ -24,9 +24,12 @@ export interface IForecastDTO {
 
 export const transformData = (forecast: IForecast): IForecastDTO => {
   const days: Record<string, IDayDTO[]> = {};
+  const today = new Date().toLocaleDateString();
 
-  forecast.list.forEach((current) => {
-    const day = current.dt_txt.split(" ")[0];
+  for (const current of forecast.list) {
+    const day = new Date(current.dt * 1000).toLocaleDateString();
+
+    if (day === today) continue;
 
     if (!days[day]) {
       days[day] = [];
@@ -46,7 +49,7 @@ export const transformData = (forecast: IForecast): IForecastDTO => {
       wind: current.wind,
       snow: current.snow,
     });
-  });
+  }
 
   return {
     city: forecast.city.name,
