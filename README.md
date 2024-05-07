@@ -35,7 +35,7 @@ npm install npm@latest -g
    ```
    export const OPEN_WEATHER_API_KEY = "Tu api key";
    ```
-   **Si no se realiza este paso los endpoints /v1/current y /v1/forecast no estarán disponibles, además fallarán todos los test relacionados a estos si son ejecutados**
+   **Si no se realiza este paso los endpoints /v1/current y /v1/forecast no estarán disponibles. Además, en caso de ser ejecutados, fallarán todos los tests relacionados a estos dos endpoints.**
 
 ### Comandos de ejecución
 
@@ -47,7 +47,7 @@ npm install npm@latest -g
 
 La aplicación se ejecuta por defecto en el puerto 3000, en caso de querer cambiarlo modificar el archivo src/config/default.ts con el nuevo valor del puerto. Los endpoints disponibles son los siguientes:
 
-**GET /v1/location** - Permite obtener datos de la ubicación. actual
+**GET /v1/location** - Permite obtener datos de la ubicación actual.
 
 `curl --location 'localhost:3000/v1/location'`
 
