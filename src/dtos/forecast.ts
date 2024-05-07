@@ -2,7 +2,6 @@ import { IForecast } from "../types/forecastTypes";
 
 export interface IDayDTO {
   dt: number;
-  dttxt: string;
   temp: number;
   feels: number;
   pressure: number;
@@ -35,7 +34,6 @@ export const transformData = (forecast: IForecast): IForecastDTO => {
 
     days[day].push({
       dt: current.dt,
-      dttxt: current.dt_txt,
       temp: current.main.temp,
       feels: current.main.feels_like,
       pressure: current.main.pressure,
