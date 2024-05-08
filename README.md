@@ -35,7 +35,7 @@ npm install npm@latest -g
    ```
    export const OPEN_WEATHER_API_KEY = "Tu api key";
    ```
-   **Si no se realiza este paso los endpoints /v1/current y /v1/forecast no estarán disponibles. Además, en caso de ser ejecutados, fallarán todos los tests relacionados a estos dos endpoints.**
+   **Si no se realiza este paso los endpoints /api/v1/current y /api/v1/forecast no estarán disponibles. Además, en caso de ser ejecutados, fallarán todos los tests relacionados a estos dos endpoints.**
 
 ### Comandos de ejecución
 
@@ -47,9 +47,9 @@ npm install npm@latest -g
 
 La aplicación se ejecuta por defecto en el puerto 3000, en caso de querer cambiarlo modificar el archivo src/config/default.ts con el nuevo valor del puerto. Los endpoints disponibles son los siguientes:
 
-**GET /v1/location** - Permite obtener datos de la ubicación actual.
+**GET /api/v1/location** - Permite obtener datos de la ubicación actual.
 
-`curl --location 'localhost:3000/v1/location'`
+`curl --location 'localhost:3000/api/v1/location'`
 
 respuesta:
 
@@ -64,9 +64,9 @@ respuesta:
 
 ```
 
-**GET /v1/current/[city]** - Permite obtener el pronóstico de la ciudad actual si no se pasa el parámetro city o de la ciudad solicitada si se pasa el parámetro.
+**GET /api/v1/current/[city]** - Permite obtener el pronóstico de la ciudad actual si no se pasa el parámetro city o de la ciudad solicitada si se pasa el parámetro.
 
-`curl --location 'localhost:3000/v1/current/bariloche'`
+`curl --location 'localhost:3000/api/v1/current/bariloche'`
 
 respuesta:
 
@@ -101,9 +101,9 @@ respuesta:
 
 ```
 
-**GET /v1/forecast/[city]** - Permite obtener el pronóstico extendido a 5 días de la ciudad actual si no se pasa el parámetro city o de la ciudad solicitada si se pasa el parámetro.
+**GET /api/v1/forecast/[city]** - Permite obtener el pronóstico extendido a 5 días de la ciudad actual si no se pasa el parámetro city o de la ciudad solicitada si se pasa el parámetro.
 
-`curl --location 'localhost:3000/v1/forecast/bariloche'`
+`curl --location 'localhost:3000/api/v1/forecast/bariloche'`
 
 respuesta:
 
