@@ -7,9 +7,18 @@ export interface IDayDTO {
   pressure: number;
   humidity: number;
   mainCondition: { name: string; description: string };
-  clouds: any;
-  wind: any;
-  snow: any;
+  clouds: number;
+  wind: {
+    speed: number;
+    deg: number;
+    gust?: number;
+  };
+  rain?: {
+    "3h"?: number;
+  };
+  snow?: {
+    "3h"?: number;
+  };
 }
 
 export interface IForecastDTO {
@@ -45,9 +54,10 @@ export const transformData = (forecast: IForecast): IForecastDTO => {
         name: current.weather[0].main,
         description: current.weather[0].description,
       },
-      clouds: current.clouds,
+      clouds: current.clouds.all,
       wind: current.wind,
       snow: current.snow,
+      rain: current.rain,
     });
   }
 

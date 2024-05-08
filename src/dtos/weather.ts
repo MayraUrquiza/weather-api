@@ -13,9 +13,20 @@ export interface IWeatherDTO {
   pressure: number;
   humidity: number;
   mainCondition: { name: string; description: string };
-  clouds: any;
-  wind: any;
-  snow: any;
+  clouds: number;
+  wind: {
+    speed: number;
+    deg: number;
+    gust?: number;
+  };
+  snow?: {
+    "1h"?: number;
+    "3h"?: number;
+  };
+  rain?: {
+    "1h"?: number;
+    "3h"?: number;
+  };
 }
 
 export const transformData = (weather: IWeather): IWeatherDTO => ({
@@ -34,7 +45,8 @@ export const transformData = (weather: IWeather): IWeatherDTO => ({
     name: weather.weather[0].main,
     description: weather.weather[0].description,
   },
-  clouds: weather.clouds,
+  clouds: weather.clouds.all,
   wind: weather.wind,
   snow: weather.snow,
+  rain: weather.rain,
 });
