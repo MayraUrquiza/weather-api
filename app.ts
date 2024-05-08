@@ -23,7 +23,7 @@ const { API_PATH, PORT } = DEFAULT;
 
 app.use(json());
 app.use(helmet());
-app.use(cors());
+app.use(cors({ origin: "http://localhost:5173" }));
 app.use(errorMiddleware);
 app.use(API_PATH, router);
 app.use(notFoundMiddleware);
