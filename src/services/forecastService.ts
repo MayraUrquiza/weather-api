@@ -1,6 +1,6 @@
 import axios from "axios";
-import { OPEN_WEATHER_API_URL } from "../config/default";
-import { OPEN_WEATHER_API_KEY } from "../config/secrets";
+import { CONFIG as CONFIG_FEFAULT } from "../config/default";
+import { CONFIG as CONFIG_SECRETS } from "../config/secrets";
 import { transformData } from "../dtos/forecast";
 import { IForecastParameters, IForecast } from "../types/forecastTypes";
 
@@ -12,7 +12,7 @@ export const getDailyForecast = async ({
   cnt = 40,
 }: IForecastParameters) => {
   const { data: forecast } = await axios.get<IForecast>(
-    `${OPEN_WEATHER_API_URL}/data/2.5/forecast`,
+    `${CONFIG_FEFAULT.OPEN_WEATHER_API_URL}/data/2.5/forecast`,
     {
       params: {
         lat,
@@ -20,7 +20,7 @@ export const getDailyForecast = async ({
         lang,
         units,
         cnt,
-        appid: OPEN_WEATHER_API_KEY,
+        appid: CONFIG_SECRETS.OPEN_WEATHER_API_KEY,
       },
     }
   );

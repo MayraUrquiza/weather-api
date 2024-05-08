@@ -7,7 +7,7 @@ import {
   shouldBeNotFoundCityError,
   shouldBeStatus,
 } from ".";
-import { API_PATH } from "../src/config/default";
+import { CONFIG } from "../src/config/default";
 import { IDayDTO } from "../src/dtos/forecast";
 import * as forecastService from "../src/services/forecastService";
 
@@ -44,7 +44,7 @@ describe("Test five days forecast", () => {
 
   describe("Get five days forecast for the current location", () => {
     before(async () => {
-      response = await request.get(`${API_PATH}forecast`);
+      response = await request.get(`${CONFIG.API_PATH}forecast`);
     });
 
     it("Should return 200 status code", () => shouldBeStatus(response, 200));
@@ -54,7 +54,9 @@ describe("Test five days forecast", () => {
     it("Should return forecast data", () => shouldBeForecastData(response));
 
     it("Should return forecast for current location", async () => {
-      const currentLocationResponse = await request.get(`${API_PATH}location`);
+      const currentLocationResponse = await request.get(
+        `${CONFIG.API_PATH}location`
+      );
 
       should(response.body.lon).be.equal(currentLocationResponse.body.lon);
       should(response.body.lat).be.equal(currentLocationResponse.body.lat);
@@ -63,7 +65,7 @@ describe("Test five days forecast", () => {
 
   describe("Get five days forecast for an existing city", () => {
     before(async () => {
-      response = await request.get(`${API_PATH}forecast/cordoba`);
+      response = await request.get(`${CONFIG.API_PATH}forecast/cordoba`);
     });
 
     it("Should return 200 status code", () => shouldBeStatus(response, 200));
@@ -79,7 +81,7 @@ describe("Test five days forecast", () => {
 
   describe("Get five days forecast for a non-existing city", () => {
     before(async () => {
-      response = await request.get(`${API_PATH}forecast/fakecity`);
+      response = await request.get(`${CONFIG.API_PATH}forecast/fakecity`);
     });
 
     it("Should return 400 status code", () => shouldBeStatus(response, 400));
@@ -95,7 +97,7 @@ describe("Test five days forecast", () => {
         .stub(forecastService, "getDailyForecast")
         .throws(new Error("Simulated error on get daily forecast"));
 
-      response = await request.get(`${API_PATH}forecast`);
+      response = await request.get(`${CONFIG.API_PATH}forecast`);
     });
 
     it("Should return 500 status code", () => shouldBeStatus(response, 500));
@@ -112,7 +114,9 @@ describe("Test five days forecast", () => {
       const maliciousInput = encodeURIComponent(
         "<script>alert(1234);</script>"
       );
-      response = await request.get(`${API_PATH}forecast/${maliciousInput}`);
+      response = await request.get(
+        `${CONFIG.API_PATH}forecast/${maliciousInput}`
+      );
     });
 
     it("Should return 400 status code", () => shouldBeStatus(response, 400));

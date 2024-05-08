@@ -1,15 +1,14 @@
 import should from "should";
-import sinon from "sinon";
 import { Response } from "supertest";
 import { request, shouldBeJsonContent, shouldBeStatus } from ".";
-import { API_PATH } from "../src/config/default";
-import * as secrets from "../src/config/secrets";
+import { CONFIG as CONFIG_DEFAULT } from "../src/config/default";
+import { CONFIG as CONFIG_SECRETS } from "../src/config/secrets";
 
 describe("Not implemented endpoint", () => {
   let response: Response;
 
   before(async () => {
-    response = await request.get(`${API_PATH}not-implemented`);
+    response = await request.get(`${CONFIG_DEFAULT.API_PATH}not-implemented`);
   });
 
   it("Should return 404 status code", () => shouldBeStatus(response, 404));
@@ -21,17 +20,19 @@ describe("Not implemented endpoint", () => {
     should(response.body).have.property("code", 404);
     should(response.body).have.property(
       "message",
-      `Cannot GET ${API_PATH}not-implemented`
+      `Cannot GET ${CONFIG_DEFAULT.API_PATH}not-implemented`
     );
   });
 });
 
 describe("No API KEY available", () => {
   let response: Response;
+  let previousValue: string;
 
   before(async () => {
-    sinon.stub(secrets, "OPEN_WEATHER_API_KEY").set(() => "");
-    response = await request.get(`${API_PATH}current`);
+    previousValue = CONFIG_SECRETS.OPEN_WEATHER_API_KEY;
+    CONFIG_SECRETS.OPEN_WEATHER_API_KEY = "";
+    response = await request.get(`${CONFIG_DEFAULT.API_PATH}current`);
   });
 
   it("Should return 401 status code", () => shouldBeStatus(response, 401));
@@ -52,6 +53,7 @@ describe("No API KEY available", () => {
   });
 
   after(() => {
-    sinon.restore();
+    CONFIG_SECRETS.OPEN_WEATHER_API_KEY =
+      process.env.OPEN_WEATHER_API_KEY || previousValue;
   });
 });

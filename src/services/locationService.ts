@@ -1,6 +1,6 @@
 import axios from "axios";
-import { IP_API_URL, OPEN_WEATHER_API_URL } from "../config/default";
-import { OPEN_WEATHER_API_KEY } from "../config/secrets";
+import { CONFIG as CONFIG_DEFAULT } from "../config/default";
+import { CONFIG as CONFIG_SECRETS } from "../config/secrets";
 import { transformData } from "../dtos/location";
 import {
   ILocationByIp,
@@ -10,7 +10,7 @@ import {
 
 export const getCurrentLocation = async () => {
   const { data: currentLocation } = await axios.get<ILocationByIp>(
-    `${IP_API_URL}/json/`
+    `${CONFIG_DEFAULT.IP_API_URL}/json/`
   );
 
   return transformData(currentLocation);
@@ -23,12 +23,12 @@ const getLocationsByName = async ({
   limit = 10,
 }: ILocationParameters) => {
   const { data: locationsByName } = await axios.get<ILocationByName[]>(
-    `${OPEN_WEATHER_API_URL}/geo/1.0/direct`,
+    `${CONFIG_DEFAULT.OPEN_WEATHER_API_URL}/geo/1.0/direct`,
     {
       params: {
         q: `${cityName},${stateCode},${countryCode}`,
         limit,
-        appid: OPEN_WEATHER_API_KEY,
+        appid: CONFIG_SECRETS.OPEN_WEATHER_API_KEY,
       },
     }
   );
@@ -53,7 +53,12 @@ export const getCoordinates = async (city?: string) => {
     return { lat, lon };
   }
 
-  const locationByName = await getLocationByName({ cityName: city });
+  const [cityName, stateCode, countryCode] = city.split(",");
+  const locationByName = await getLocationByName({
+    cityName,
+    stateCode,
+    countryCode,
+  });
 
   if (!locationByName) return;
 

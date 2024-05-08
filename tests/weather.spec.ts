@@ -7,7 +7,7 @@ import {
   shouldBeNotFoundCityError,
   shouldBeStatus,
 } from ".";
-import { API_PATH } from "../src/config/default";
+import { CONFIG } from "../src/config/default";
 import * as weatherService from "../src/services/weatherService";
 
 describe("Test current weather", () => {
@@ -37,7 +37,7 @@ describe("Test current weather", () => {
 
   describe("Get current weather for the current location", () => {
     before(async () => {
-      response = await request.get(`${API_PATH}current`);
+      response = await request.get(`${CONFIG.API_PATH}current`);
     });
 
     it("Should return 200 status code", () => shouldBeStatus(response, 200));
@@ -48,7 +48,9 @@ describe("Test current weather", () => {
       shouldBeWeatherData(response));
 
     it("Should return current weather for current location", async () => {
-      const currentLocationResponse = await request.get(`${API_PATH}location`);
+      const currentLocationResponse = await request.get(
+        `${CONFIG.API_PATH}location`
+      );
 
       should(response.body.lon).be.equal(currentLocationResponse.body.lon);
       should(response.body.lat).be.equal(currentLocationResponse.body.lat);
@@ -57,7 +59,7 @@ describe("Test current weather", () => {
 
   describe("Get current weather for an existing city", () => {
     before(async () => {
-      response = await request.get(`${API_PATH}current/cordoba`);
+      response = await request.get(`${CONFIG.API_PATH}current/cordoba`);
     });
 
     it("Should return 200 status code", () => shouldBeStatus(response, 200));
@@ -74,7 +76,7 @@ describe("Test current weather", () => {
 
   describe("Get current weather for a non-existing city", () => {
     before(async () => {
-      response = await request.get(`${API_PATH}current/fakecity`);
+      response = await request.get(`${CONFIG.API_PATH}current/fakecity`);
     });
 
     it("Should return 400 status code", () => shouldBeStatus(response, 400));
@@ -90,7 +92,7 @@ describe("Test current weather", () => {
         .stub(weatherService, "getCurrentWeather")
         .throws(new Error("Simulated error on get current weather"));
 
-      response = await request.get(`${API_PATH}current`);
+      response = await request.get(`${CONFIG.API_PATH}current`);
     });
 
     it("Should return 500 status code", () => shouldBeStatus(response, 500));
@@ -107,7 +109,9 @@ describe("Test current weather", () => {
       const maliciousInput = encodeURIComponent(
         "<script>alert(1234);</script>"
       );
-      response = await request.get(`${API_PATH}current/${maliciousInput}`);
+      response = await request.get(
+        `${CONFIG.API_PATH}current/${maliciousInput}`
+      );
     });
 
     it("Should return 400 status code", () => shouldBeStatus(response, 400));
