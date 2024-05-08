@@ -32,9 +32,20 @@ npm install npm@latest -g
    npm install
    ```
 4. Setear la api key obtenida en el paso 1 en src/config/secrets.ts
+
    ```
-   export const OPEN_WEATHER_API_KEY = "Tu api key";
+   export const CONFIG = {
+      ...,
+      OPEN_WEATHER_API_KEY: "Tu api key",
+    };
    ```
+
+   o en el archivo .env
+
+   ```
+   OPEN_WEATHER_API_KEY = "Tu api key"
+   ```
+
    **Si no se realiza este paso los endpoints /api/v1/current y /api/v1/forecast no estarán disponibles. Además, en caso de ser ejecutados, fallarán todos los tests relacionados a estos dos endpoints.**
 
 ### Comandos de ejecución
