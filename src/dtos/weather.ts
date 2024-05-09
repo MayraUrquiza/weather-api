@@ -1,10 +1,7 @@
 import { IWeather } from "../types/weatherTypes";
+import { ILocationDTO } from "./location";
 
-export interface IWeatherDTO {
-  city: string;
-  countryCode: string;
-  lat: number;
-  lon: number;
+export interface IWeatherDTO extends Omit<ILocationDTO, "country"> {
   sunrise: number;
   sunset: number;
   dt: number;

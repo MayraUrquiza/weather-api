@@ -1,4 +1,5 @@
 import { IForecast } from "../types/forecastTypes";
+import { ILocationDTO } from "./location";
 
 export interface IDayDTO {
   dt: number;
@@ -21,11 +22,7 @@ export interface IDayDTO {
   };
 }
 
-export interface IForecastDTO {
-  city: string;
-  countryCode: string;
-  lat: number;
-  lon: number;
+export interface IForecastDTO extends Omit<ILocationDTO, "country"> {
   sunrise: number;
   sunset: number;
   days: { [key: string]: IDayDTO[] };
